@@ -57,7 +57,6 @@ class NaiveComparatorTest {
                 .set("name", "ABC")
                 .build();
         var expectedDiff = List.of(
-                new ThinAvroDiff("User.", "record", null, null),
                 new ThinAvroDiff("User.id", "string", "42", null),
                 new ThinAvroDiff("User.name", "string", "ABC", null)
         );
@@ -73,7 +72,6 @@ class NaiveComparatorTest {
                         .set("name", "ABCd")
                         .build();
         var expectedDiff = List.of(
-                new ThinAvroDiff("User.", "record", null, null),
                 new ThinAvroDiff("User.id", "string", null, "43"),
                 new ThinAvroDiff("User.name", "string", null, "ABCd")
         );
@@ -122,7 +120,6 @@ class NaiveComparatorTest {
                         .set("favorite_color", "red")
                         .build();
         final List<Object> expectedDiff = List.of(
-                new ThinAvroDiff("User.", "record", null, null),
                 new ThinAvroDiff("User.name", "string", "ABC", "abc")
         );
         assertEquals(expectedDiff, comparator.getDiff(SCHEMA, left, right));
@@ -143,7 +140,6 @@ class NaiveComparatorTest {
                         .set("favorite_number", 22)
                         .build();
         final List<Object> expectedDiff = List.of(
-                new ThinAvroDiff("User.", "record", null, null),
                 new ThinAvroDiff("User.favorite_number", "int", "11", "22")
         );
         assertEquals(expectedDiff, comparator.getDiff(SCHEMA, left, right));
@@ -164,7 +160,6 @@ class NaiveComparatorTest {
                         .set("favorite_number", 22)
                         .build();
         final List<Object> expectedDiff = List.of(
-                new ThinAvroDiff("User.", "record", null, null),
                 new ThinAvroDiff("User.name", "string", "ABC", "abc"),
                 new ThinAvroDiff("User.favorite_number", "int", "11", "22")
         );
@@ -191,10 +186,8 @@ class NaiveComparatorTest {
                         .set("favorite_number", 22)
                         .build();
         final List<Object> expectedDiff = List.of(
-                new ThinAvroDiff("User.", "record", null, null),
                 new ThinAvroDiff("User.name", "string", "ABC", "abc"),
                 new ThinAvroDiff("User.favorite_number", "int", "11", "22"),
-                new ThinAvroDiff("User.address.", "record", null, null),
                 new ThinAvroDiff("User.address.line1", "string", "Address Line 1", null)
         );
         assertEquals(expectedDiff, comparator.getDiff(SCHEMA, left, right));
@@ -225,10 +218,8 @@ class NaiveComparatorTest {
                         .set("address", addressRight)
                         .build();
         final List<Object> expectedDiff = List.of(
-                new ThinAvroDiff("User.", "record", null, null),
                 new ThinAvroDiff("User.name", "string", "ABC", "abc"),
                 new ThinAvroDiff("User.favorite_number", "int", "11", "22"),
-                new ThinAvroDiff("User.address.", "record", null, null),
                 new ThinAvroDiff("User.address.line2", "string", "Address Line 2", null)
         );
         assertEquals(expectedDiff, comparator.getDiff(SCHEMA, left, right));

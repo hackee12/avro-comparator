@@ -42,20 +42,12 @@ public class NaiveComparator implements AvroComparator<DeepDiff> {
             throw new AvroComparatorException(new IllegalArgumentException(
                     "Comparing nulls is ambiguous for me. Let the client handle this logic."));
         }
-        if (isNull(left) || isNull(right)) {
-            return traverseRecord(reader.getName(), reader, left, right);
-        }
-        if (left.equals(right)) {
-            return List.of();
-        }
         return traverseRecord(reader.getName(), reader, left, right);
     }
 
     private List<ThinAvroDiff> traverseRecord(String parent, Schema recordSchema, GenericRecord left, GenericRecord right) {
         final List<ThinAvroDiff> diff = new ArrayList<>();
         final String level = parent + LAYOUT.getDelimiter();
-
-        diff.add(new ThinAvroDiff(level, recordSchema.getType().getName(), null, null));
 
         for (Schema.Field field : recordSchema.getFields()) {
             final Schema fieldDatumSchema = SchemaUtil.getDatumSchema(field.schema());
