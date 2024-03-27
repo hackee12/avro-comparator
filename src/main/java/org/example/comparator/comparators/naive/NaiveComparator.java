@@ -38,9 +38,10 @@ public class NaiveComparator implements AvroComparator<DeepDiff> {
 
     @Override
     public List<ThinAvroDiff> getDiff(Schema reader, GenericRecord left, GenericRecord right) {
-        if (isNull(left) && isNull(right)) {
+        if (left == right) {
             throw new AvroComparatorException(new IllegalArgumentException(
-                    "Comparing nulls is ambiguous for me. Let the client handle this logic."));
+                    "This comparator does not support comparing objects to themselves."
+            ));
         }
         return traverseRecord(reader.getName(), reader, left, right);
     }
