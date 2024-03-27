@@ -201,7 +201,7 @@ class NaiveComparatorTest {
     }
 
     @Test
-    void missingNestedStringRecord() {
+    void missingNestedString() {
         final GenericData.Record addressLeft =
                 new GenericRecordBuilder(
                         SchemaUtil.getDatumSchema(SCHEMA.getField("address").schema())
