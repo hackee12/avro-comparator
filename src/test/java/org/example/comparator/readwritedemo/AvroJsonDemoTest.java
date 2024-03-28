@@ -19,13 +19,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
-class WriteGenericRecordToAvroJsonDemoTest {
+class AvroJsonDemoTest {
 
     static final String SCHEMA_FILE = "src/test/resources/user.avsc";
 
     @Disabled
     @Test
-    void writeToAvroJsonThenReadFromAvroJson() throws IOException {
+    void writeToThenReadFromAvroJson() throws IOException {
         Schema schema = new Schema.Parser().parse(new File(SCHEMA_FILE));
 
         GenericData.Record userWrite = new GenericRecordBuilder(schema)
