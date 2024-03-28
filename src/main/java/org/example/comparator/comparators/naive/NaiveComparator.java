@@ -43,10 +43,10 @@ public class NaiveComparator implements AvroComparator<DeepDiff> {
                     "This comparator does not support comparing objects to themselves."
             ));
         }
-        return traverseRecord(reader.getName(), reader, left, right);
+        return traverseRecordGenericRecords(reader.getName(), reader, left, right);
     }
 
-    private List<ThinAvroDiff> traverseRecord(String parent, Schema recordSchema, GenericRecord left, GenericRecord right) {
+    private List<ThinAvroDiff> traverseRecordGenericRecords(String parent, Schema recordSchema, GenericRecord left, GenericRecord right) {
         final List<ThinAvroDiff> diff = new ArrayList<>();
         final String level = parent + LAYOUT.getDelimiter();
 
@@ -69,7 +69,7 @@ public class NaiveComparator implements AvroComparator<DeepDiff> {
                         format(TYPE_NOT_SUPPORTED_IN_DEMO, fieldDatumType)));
 
                 case RECORD ->
-                        diff.addAll(traverseRecord(level + field.name(), fieldDatumSchema, (GenericRecord) fieldValueLeft, (GenericRecord) fieldValueRight));
+                        diff.addAll(traverseRecordGenericRecords(level + field.name(), fieldDatumSchema, (GenericRecord) fieldValueLeft, (GenericRecord) fieldValueRight));
 
                 case STRING, INT, LONG, FLOAT, DOUBLE, BOOLEAN ->
                         diff.addAll(traverseLeaf(level, field, fieldValueLeft, fieldValueRight));
