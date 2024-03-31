@@ -224,4 +224,33 @@ class NaiveComparatorTest {
         );
         assertEquals(expectedDiff, comparator.getDiff(SCHEMA, left, right));
     }
+
+    @Test
+    void missingItemWithinArrayOfString() {
+        final GenericData.Record address =
+                new GenericRecordBuilder(
+                        SchemaUtil.getDatumSchema(SCHEMA.getField("address").schema())
+                ).set("line1", "Address Line 1").set("line2", "Address Line 2").build();
+        final GenericRecord left =
+                new GenericRecordBuilder(SCHEMA)
+                        .set("id", 42)
+                        .set("name", "ABC")
+                        .set("favorite_number", 11)
+                        .set("address", address)
+                        .set("contacts", List.of("1"))
+                        .build();
+        final GenericRecord right =
+                new GenericRecordBuilder(SCHEMA)
+                        .set("id", 42)
+                        .set("name", "ABC")
+                        .set("favorite_number", 11)
+                        .set("address", address)
+                        .set("contacts", List.of())
+                        .build();
+
+        final List<ThinAvroDiff> expectedDiffs = List.of(
+                new ThinAvroDiff("User.contacts[0]", "string", "1", null)
+        );
+        assertEquals(expectedDiffs, comparator.getDiff(SCHEMA, left, right));
+    }
 }

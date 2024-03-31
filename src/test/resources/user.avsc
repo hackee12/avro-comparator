@@ -51,6 +51,16 @@
         }
       ],
       "default": null
+    },
+    {
+      "name": "contacts",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": "string"
+        }],
+      "default": null
     }
   ]
 }

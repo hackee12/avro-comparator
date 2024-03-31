@@ -13,6 +13,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>17</maven.compiler.release>
+
+        <avro.version>1.11.3</avro.version>
     </properties>
 
     <dependencyManagement>
@@ -31,12 +33,12 @@
         <dependency>
             <groupId>org.apache.avro</groupId>
             <artifactId>avro</artifactId>
-            <version>1.11.3</version>
+            <version>${avro.version}</version>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.apache.avro</groupId>-->
 <!--            <artifactId>avro-tools</artifactId>-->
-<!--            <version>1.11.3</version>-->
+<!--            <version>${avro.version}</version>-->
 <!--        </dependency>-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
